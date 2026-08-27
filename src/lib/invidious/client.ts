@@ -1,5 +1,10 @@
 // src/lib/invidious/client.ts
-import "server-only";
+//
+// Runs client-side now — see the architecture note at the top of
+// instances.ts for why. The "next: { revalidate }" option from the
+// original server-side version is gone since it's a Next.js
+// server-fetch-cache feature with no meaning in a browser fetch; this
+// module now relies on the browser's normal HTTP caching behavior.
 import { getHealthyInstance, getInstancePool, blacklistInstance } from "./instances";
 
 const REQUEST_TIMEOUT_MS = 8000;
@@ -32,10 +37,7 @@ async function doFetch(
       signal: controller.signal,
       headers: {
         Accept: "application/json",
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
       },
-      next: { revalidate: 300 },
     });
 
     if (!res.ok) {
