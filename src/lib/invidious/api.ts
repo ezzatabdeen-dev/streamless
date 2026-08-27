@@ -1,5 +1,8 @@
 // src/lib/invidious/api.ts
-import "server-only";
+// Runs client-side now — see the architecture note at the top of
+// instances.ts. These functions are called from "use client" pages via
+// the useAsyncData hook rather than awaited directly inside Server
+// Components.
 import { invidiousFetch } from "./client";
 import type {
   InvidiousVideo,
